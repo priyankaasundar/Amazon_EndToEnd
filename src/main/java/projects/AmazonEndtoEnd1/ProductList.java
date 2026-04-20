@@ -10,8 +10,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
+
 
 public class ProductList 
 {
@@ -43,12 +44,13 @@ public class ProductList
 	
 	@FindBy(className = "a-button-text")
 	private WebElement gotocart;
+	private FluentWait<WebDriver> wait;
 	
 	
-	WebDriverWait wait=new WebDriverWait(driver, Duration.ofSeconds(10));
+	
 	public void addToCart()
 	{
-		wait.until(ExpectedConditions.visibilityOf(sort));			
+		//wait.until(ExpectedConditions.visibilityOf(sort));			
 		CartButton.click(); 	
 	}
 	public void searchProductClick() throws InterruptedException
@@ -62,44 +64,46 @@ public class ProductList
 		driver.switchTo().window(cid);
 	}
 	public void sorting() 
-	{			wait.until(ExpectedConditions.visibilityOf(sort));		
+	{			//wait.until(ExpectedConditions.visibilityOf(sort));		
 		sort.click();		
 	}
 	public void Review()
 	{
-		wait.until(ExpectedConditions.visibilityOf(Rating));	
+		//wait.until(ExpectedConditions.visibilityOf(Rating));	
 		Rating.click();
 	}	
 	public void bestSellers()
 	{
-		wait.until(ExpectedConditions.visibilityOf(sellers));	
+		//wait.until(ExpectedConditions.visibilityOf(sellers));	
 		sellers.click();
 	}	
 	
-	public void productRating()
+	public boolean productRating()
 	{
-		wait.until(ExpectedConditions.visibilityOf(Rating));
-		Assert.assertTrue(rating.size()>0,"Rating is not empty");
+		//wait.until(ExpectedConditions.visibilityOf(Rating));
+		return rating.size()>0;
 		
 	}
-	public void productPrice()
+	public boolean productPrice()
 	{
-		wait.until(ExpectedConditions.visibilityOfAllElements(price));
-		Assert.assertTrue(price.size()>0,"Price is not empty");
+		//wait.until(ExpectedConditions.visibilityOfAllElements(price));
+		return price.size()>0;
 	}
-	public void productDescription()
+	public boolean productDescription()
 	{
-		wait.until(ExpectedConditions.visibilityOfAllElements(description));
-		Assert.assertTrue(description.size()>0,"Description Rating is not empty");
+		//wait.until(ExpectedConditions.visibilityOfAllElements(description));
+		return description.size()>0;
 	}
 	public void cart()
 	{
-		wait.until(ExpectedConditions.visibilityOf(gotocart));
+		//wait.until(ExpectedConditions.visibilityOf(gotocart));
 		gotocart.click();
 	}
 	public ProductList(WebDriver driver)
 	{
+		
 		this.driver = driver;
+		
 		PageFactory.initElements(driver, this);
 	}
 	
